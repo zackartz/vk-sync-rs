@@ -286,12 +286,12 @@ pub struct ImageBarrier<'a> {
 /// Mapping function that translates a global barrier into a set of source and
 /// destination pipeline stages, and a memory barrier, that can be used with
 /// Vulkan synchronization methods.
-pub fn get_memory_barrier(
-	barrier: &GlobalBarrier,
+pub fn get_memory_barrier<'a>(
+	barrier: &'a GlobalBarrier<'a>,
 ) -> (
 	ash::vk::PipelineStageFlags,
 	ash::vk::PipelineStageFlags,
-	ash::vk::MemoryBarrier,
+	ash::vk::MemoryBarrier<'a>,
 ) {
 	let mut src_stages = ash::vk::PipelineStageFlags::empty();
 	let mut dst_stages = ash::vk::PipelineStageFlags::empty();
@@ -337,12 +337,12 @@ pub fn get_memory_barrier(
 /// Mapping function that translates a buffer barrier into a set of source and
 /// destination pipeline stages, and a buffer memory barrier, that can be used
 /// with Vulkan synchronization methods.
-pub fn get_buffer_memory_barrier(
-	barrier: &BufferBarrier,
+pub fn get_buffer_memory_barrier<'a>(
+	barrier: &BufferBarrier<'a>,
 ) -> (
 	ash::vk::PipelineStageFlags,
 	ash::vk::PipelineStageFlags,
-	ash::vk::BufferMemoryBarrier,
+	ash::vk::BufferMemoryBarrier<'a>,
 ) {
 	let mut src_stages = ash::vk::PipelineStageFlags::empty();
 	let mut dst_stages = ash::vk::PipelineStageFlags::empty();
@@ -395,12 +395,12 @@ pub fn get_buffer_memory_barrier(
 /// Mapping function that translates an image barrier into a set of source and
 /// destination pipeline stages, and an image memory barrier, that can be used
 /// with Vulkan synchronization methods.
-pub fn get_image_memory_barrier(
-	barrier: &ImageBarrier,
+pub fn get_image_memory_barrier<'a>(
+	barrier: &ImageBarrier<'a>,
 ) -> (
 	ash::vk::PipelineStageFlags,
 	ash::vk::PipelineStageFlags,
-	ash::vk::ImageMemoryBarrier,
+	ash::vk::ImageMemoryBarrier<'a>,
 ) {
 	let mut src_stages = ash::vk::PipelineStageFlags::empty();
 	let mut dst_stages = ash::vk::PipelineStageFlags::empty();

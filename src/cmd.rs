@@ -7,7 +7,7 @@ use ash;
 /// barriers to be passed to `vkCmdPipelineBarrier`.
 /// `command_buffer` is passed unmodified to `vkCmdPipelineBarrier`.
 pub fn pipeline_barrier(
-	device: &ash::vk::DeviceFnV1_0,
+	device: &ash::DeviceFnV1_0,
 	command_buffer: ash::vk::CommandBuffer,
 	global_barrier: Option<GlobalBarrier>,
 	buffer_barriers: &[BufferBarrier],
@@ -48,7 +48,7 @@ pub fn pipeline_barrier(
 	}
 
 	unsafe {
-		device.cmd_pipeline_barrier(
+		(device.cmd_pipeline_barrier)(
 			command_buffer,
 			src_stage_mask,
 			dst_stage_mask,
@@ -67,7 +67,7 @@ pub fn pipeline_barrier(
 /// Sets an event when the accesses defined by `previous_accesses` are completed.
 /// `command_buffer` and `event` are passed unmodified to `vkCmdSetEvent`.
 pub fn set_event(
-	device: &ash::vk::DeviceFnV1_0,
+	device: &ash::DeviceFnV1_0,
 	command_buffer: ash::vk::CommandBuffer,
 	event: ash::vk::Event,
 	previous_accesses: &[AccessType],
@@ -79,7 +79,7 @@ pub fn set_event(
 	}
 
 	unsafe {
-		device.cmd_set_event(command_buffer, event, stage_mask);
+		(device.cmd_set_event)(command_buffer, event, stage_mask);
 	}
 }
 
@@ -87,7 +87,7 @@ pub fn set_event(
 /// Resets an event when the accesses defined by `previous_accesses` are completed.
 /// `command_buffer` and `event` are passed unmodified to `vkCmdResetEvent`.
 pub fn reset_event(
-	device: &ash::vk::DeviceFnV1_0,
+	device: &ash::DeviceFnV1_0,
 	command_buffer: ash::vk::CommandBuffer,
 	event: ash::vk::Event,
 	previous_accesses: &[AccessType],
@@ -99,7 +99,7 @@ pub fn reset_event(
 	}
 
 	unsafe {
-		device.cmd_reset_event(command_buffer, event, stage_mask);
+		(device.cmd_reset_event)(command_buffer, event, stage_mask);
 	}
 }
 
@@ -110,7 +110,7 @@ pub fn reset_event(
 ///
 /// `commandBuffer` and `events` are passed unmodified to `vkCmdWaitEvents`.
 pub fn wait_events(
-	device: &ash::vk::DeviceFnV1_0,
+	device: &ash::DeviceFnV1_0,
 	command_buffer: ash::vk::CommandBuffer,
 	events: &[ash::vk::Event],
 	global_barrier: Option<GlobalBarrier>,
@@ -152,7 +152,7 @@ pub fn wait_events(
 	}
 
 	unsafe {
-		device.cmd_wait_events(
+		(device.cmd_wait_events)(
 			command_buffer,
 			events.len() as u32,
 			events.as_ptr(),
